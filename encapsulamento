@@ -1,0 +1,146 @@
+public class Main
+{
+    public static void main(String[] args) {
+        ControleRemoto c = new ControleRemoto();
+        c.ligar();
+        c.abrirMenu();
+        c.maisVolume();
+        c.abrirMenu();
+        c.fecharMenu();
+    }
+}
+
+interface Controlador {
+    public abstract void ligar();
+    public abstract void desligar();
+    public abstract void abrirMenu();
+    public abstract void fecharMenu();
+    public abstract void maisVolume();
+    public abstract void menosVolume();
+    public abstract void ligarMudo();
+    public abstract void desligarMudo();
+    public abstract void play();
+    public abstract void pause();
+}
+
+class ControleRemoto implements Controlador {
+    private int volume;
+    private boolean ligado;
+    private boolean tocando;
+    
+    public ControleRemoto() {
+        this.volume = 50;
+        this.ligado = true;
+        this.tocando = false;
+    }
+    
+    public int getVolume() {
+        return this.volume;
+    }
+    
+    public void setVolume(int v){
+        this.volume = v;
+    }
+    
+    public boolean getLigado() {
+        return this.ligado;
+    }
+    
+    public void setLigado(boolean on) {
+        this.ligado = on;
+    }
+    
+    public boolean getTocando() {
+        return this.tocando;
+    }
+    
+    public void setTocando(boolean tocando) {
+        this.tocando = tocando;
+    }
+    
+    private void ligar() {
+        this.setLigado(true);
+    }
+    
+    private void desligar() {
+        this.setLigado(false);
+    }
+    
+    public void abrirMenu() {
+        System.out.println("------------MENU---------------");
+        System.out.println("Está ligado... " + this.getLigado());
+        System.out.println("Está tocando... " + this.getTocando());
+        System.out.print("Volume: " + this.getVolume());
+        for(int i = 0; i <= this.getVolume(); i+=10) {
+            System.out.print("");
+        }
+    }
+    
+    public void fecharMenu() {
+        System.out.println("Fechando Menu...");
+    }
+    
+    public void maisVolume() {
+        if(this.getLigado()) {
+            this.setVolume(this.getVolume() + 5);
+        }
+    }
+    
+    public void menosVolume() {
+        if(this.getLigado()) {
+            this.setVolume(this.getVolume() - 5);
+        }
+    }
+    
+    public void ligarMudo() {
+        if(this.getLigado() && this.getVolume() > 0) {
+            this.setVolume(0);
+        }
+    }
+    
+    public void desligarMudo() {
+        if(this.getLigado() && this.getVolume() == 0) {
+            this.setVolume(50);
+        }
+    }
+    
+    public void play() {
+        if(this.getLigado() && !(this.getTocando())) {
+            this.setTocando(true);
+        }
+    }
+    
+    public void pause() {
+        if(this.getLigado() && this.getTocando()) {
+            this.setTocando(false);
+        }
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
